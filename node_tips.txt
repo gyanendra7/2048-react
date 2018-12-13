@@ -1,0 +1,12 @@
+// DATE
+new Date().toISOString()
+"2016-02-18T23:59:48.039Z"
+
+new Date().toISOString().split('T')[0];
+"2016-02-18"
+
+new Date().toISOString().replace('-', '/').split('T')[0].replace('-', '/');
+"2016/02/18"
+
+new Date().toLocaleString().split(',')[0]
+"2/18/2016"
