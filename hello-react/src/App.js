@@ -2,14 +2,69 @@ import React, { Component } from 'react';
 import './App.css';
 import { Jumbotron, Button, Container, Row, Col, Card } from 'reactstrap';
 
+function getColor(value) {
+  let color = 'grey';
+  switch(value) {
+    case 2:
+      color = 'grey';
+      break;
+    case 4:
+      color = 'white';
+      break;
+    case 8:
+      color = 'pink';
+      break;
+    case 16:
+      color = 'yellow';
+      break;  
+    case 32:
+      color = 'red';
+      break;
+    case 64:
+      color = 'green';
+      break;
+    case 128:
+      color = 'cyan';
+      break;
+    case 256:
+      color = 'blue';
+      break; 
+    case 512:
+      color = 'magenta';
+      break;  
+    case 1024:
+      color = 'purple';
+      break;
+    case 2048:
+      color = 'Crimson';
+      break;
+    case 4096:
+      color = 'LightSalmon';
+      break;
+    case 8192:
+      color = 'grey';
+      break;  
+    default:
+      color = 'FireBrick';
+  }
+  return color;
+}
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className="square" style={{ backgroundColor: `${getColor(props.value)}`}} onClick={props.onClick}>
       {props.value}
     </button>
   );
 }
+
+// function Square(props) {
+//   return (
+//     <button className="square" style={{ backgroundColor: `${props.value == 2 ? 'red' : 'green'}`}} onClick={props.onClick}>
+//       {props.value}
+//     </button>
+//   );
+// }
 
 class Board extends Component {
   renderSquare(i, j) {
@@ -54,6 +109,7 @@ class Game extends React.Component {
       score: 0,
       time: 0,
       start: Date.now(),
+      bestScore: 0,
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
@@ -61,6 +117,7 @@ class Game extends React.Component {
     this.shiftLeft = this.shiftLeft.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
+    this.getTime = this.getTime.bind(this);
   }
 
   startTimer() {
@@ -122,6 +179,9 @@ class Game extends React.Component {
     }
     this.state.changeOccured = flag;
     this.state.score = score;
+    if (score > this.state.bestScore) {
+      this.state.bestScore = score;
+    }
     console.log({ arr });
     return arr;
   }
@@ -245,6 +305,14 @@ class Game extends React.Component {
     });
   }
 
+  getTime() {
+    const timeInSeconds = Math.floor(this.state.time / 1000);
+    const minutes = Math.floor(timeInSeconds / 60) || 0;
+    const seconds = timeInSeconds % 60 || 0;
+    console.log({ time: `${minutes}:${seconds}` });
+    return `${minutes}:${seconds}`;
+  } 
+
   render() {
     const { squares, score }= this.state;
     const isGameOver = checkGameOver(squares);
@@ -302,7 +370,7 @@ class Game extends React.Component {
         <Row>
         <Col></Col><Col></Col><Col></Col>
         <Col><div className="timer">
-          <Button color="success"> Timer :{this.state.time}</Button>
+          <Button color="success"> {this.getTime()}</Button>
         </div></Col><Col></Col><Col></Col><Col></Col>
         </Row>
         </div>
