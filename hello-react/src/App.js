@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Jumbotron, Button, Container, Row, Col } from 'reactstrap';
+import { Jumbotron, Button, Container, Row, Col, Card } from 'reactstrap';
 
 
 function Square(props) {
@@ -253,8 +253,8 @@ class Game extends React.Component {
     console.log({ status });
     return (
       <Container>
-      <div className="timer">
-        <button type="button"> Timer :{this.state.time}</button>
+      <div id="header" name="header">
+      <Card id="cardname" name="cardname">Gradeup 2048 Game!</Card>
       </div>
       <div>
       <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
@@ -298,6 +298,14 @@ class Game extends React.Component {
             </Row>
           </Col>
         </Row>
+        <div id="timer" name="timer">
+        <Row>
+        <Col></Col><Col></Col><Col></Col>
+        <Col><div className="timer">
+          <Button color="success"> Timer :{this.state.time}</Button>
+        </div></Col><Col></Col><Col></Col><Col></Col>
+        </Row>
+        </div>
       </div>
       </div>
       </Container>
