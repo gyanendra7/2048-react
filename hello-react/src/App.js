@@ -165,6 +165,7 @@ class Game extends React.Component {
   handleKeyDown(key) {
     /* code for shifting array */
     let shiftArr = this.state.squares;
+    if (this.state.isGameOver) return;
     console.log({ key: key.keyCode });
     switch (key.keyCode) {
       case 37:
@@ -212,8 +213,6 @@ class Game extends React.Component {
   }
 
   render() {
-    // const history = this.state.history;
-    // const current = history[this.state.stepNumber];
     const squares = this.state.squares;
     const isGameOver = checkGameOver(squares);
 
@@ -238,14 +237,32 @@ class Game extends React.Component {
   }
 }
 
+function checkSafeMove(i, j) {
+  if (i < 0 || i > 3 || j < 0 || j > 3) return false;
+  return true;
+}
+
 function checkGameOver(squares) {
   let ifZeroPresent = false;
+  let ifPossibleMatch = false;
   for (let i = 0; i < squares.length; i++) {
     for(let j = 0; j < squares.length; j++) {
       if(squares[i][j] === 0) ifZeroPresent = true;
+      if (checkSafeMove(i + 1, j)) {
+        if (squares[i][j] === squares[i + 1][j]) ifPossibleMatch = true;
+      } 
+      if (checkSafeMove(i, j + 1)) {
+        if (squares[i][j] === squares[i][j + 1]) ifPossibleMatch = true;
+      } 
+      if (checkSafeMove(i, j - 1)) {
+        if (squares[i][j] === squares[i][j - 1]) ifPossibleMatch = true;
+      } 
+      if (checkSafeMove(i - 1, j)) {
+        if (squares[i][j] === squares[i - 1][j]) ifPossibleMatch = true;
+      }
     }
   }
-  return ifZeroPresent ? false : true;
+  return (ifZeroPresent || ifPossibleMatch) ? false : true;
 }
 
 
