@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Button } from 'reactstrap';
 
 
 function Square(props) {
@@ -106,9 +107,9 @@ class Game extends React.Component {
       squares[i][0] = oneDArr[0];
       squares[i][1] = oneDArr[1];
       squares[i][2] = oneDArr[2];
-      squares[i][3] = oneDArr[3]; 
+      squares[i][3] = oneDArr[3];
     }
-    this.state.changeOccured = changeOccuredFlag; 
+    this.state.changeOccured = changeOccuredFlag;
     return squares;
   }
 
@@ -123,9 +124,9 @@ class Game extends React.Component {
       squares[i][0] = oneDArr[3];
       squares[i][1] = oneDArr[2];
       squares[i][2] = oneDArr[1];
-      squares[i][3] = oneDArr[0]; 
+      squares[i][3] = oneDArr[0];
     }
-    this.state.changeOccured = changeOccuredFlag; 
+    this.state.changeOccured = changeOccuredFlag;
     return squares;
   }
 
@@ -140,9 +141,9 @@ class Game extends React.Component {
       squares[0][i] = oneDArr[0];
       squares[1][i] = oneDArr[1];
       squares[2][i] = oneDArr[2];
-      squares[3][i] = oneDArr[3]; 
+      squares[3][i] = oneDArr[3];
     }
-    this.state.changeOccured = changeOccuredFlag; 
+    this.state.changeOccured = changeOccuredFlag;
     return squares;
   }
 
@@ -156,9 +157,9 @@ class Game extends React.Component {
       squares[0][i] = oneDArr[3];
       squares[1][i] = oneDArr[2];
       squares[2][i] = oneDArr[1];
-      squares[3][i] = oneDArr[0]; 
+      squares[3][i] = oneDArr[0];
     }
-    this.state.changeOccured = changeOccuredFlag; 
+    this.state.changeOccured = changeOccuredFlag;
     return squares;
   }
 
@@ -219,10 +220,10 @@ class Game extends React.Component {
     const status = isGameOver ? 'Game Over' : 'Play!';
     console.log({ status });
     return (
-      <div 
+      <div
         className="game"
         onKeyDown={this.handleKeyDown}
-        tabIndex="0" 
+        tabIndex="0"
       >
         <div className="game-board">
           <Board
@@ -230,7 +231,7 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div><Button color="success">{status}</Button></div>
         </div>
       </div>
     );
@@ -250,13 +251,13 @@ function checkGameOver(squares) {
       if(squares[i][j] === 0) ifZeroPresent = true;
       if (checkSafeMove(i + 1, j)) {
         if (squares[i][j] === squares[i + 1][j]) ifPossibleMatch = true;
-      } 
+      }
       if (checkSafeMove(i, j + 1)) {
         if (squares[i][j] === squares[i][j + 1]) ifPossibleMatch = true;
-      } 
+      }
       if (checkSafeMove(i, j - 1)) {
         if (squares[i][j] === squares[i][j - 1]) ifPossibleMatch = true;
-      } 
+      }
       if (checkSafeMove(i - 1, j)) {
         if (squares[i][j] === squares[i - 1][j]) ifPossibleMatch = true;
       }
