@@ -48,6 +48,8 @@
   grid-template-rows: 25% 100px auto;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 .square {

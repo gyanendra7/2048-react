@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button } from 'reactstrap';
+import { Jumbotron, Button, Container, Row, Col } from 'reactstrap';
 
 
 function Square(props) {
@@ -22,25 +22,23 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0, 0)}
-          {this.renderSquare(0, 1)}
-          {this.renderSquare(0, 2)}
-          {this.renderSquare(0, 3)}
-          {this.renderSquare(1, 0)}
-          {this.renderSquare(1, 1)}
-          {this.renderSquare(1, 2)}
-          {this.renderSquare(1, 3)}
-          {this.renderSquare(2, 0)}
-          {this.renderSquare(2, 1)}
-          {this.renderSquare(2, 2)}
-          {this.renderSquare(2, 3)}
-          {this.renderSquare(3, 0)}
-          {this.renderSquare(3, 1)}
-          {this.renderSquare(3, 2)}
-          {this.renderSquare(3, 3)}
-        </div>
+      <div className="board-row">
+        {this.renderSquare(0, 0)}
+        {this.renderSquare(0, 1)}
+        {this.renderSquare(0, 2)}
+        {this.renderSquare(0, 3)}
+        {this.renderSquare(1, 0)}
+        {this.renderSquare(1, 1)}
+        {this.renderSquare(1, 2)}
+        {this.renderSquare(1, 3)}
+        {this.renderSquare(2, 0)}
+        {this.renderSquare(2, 1)}
+        {this.renderSquare(2, 2)}
+        {this.renderSquare(2, 3)}
+        {this.renderSquare(3, 0)}
+        {this.renderSquare(3, 1)}
+        {this.renderSquare(3, 2)}
+        {this.renderSquare(3, 3)}
       </div>
     );
   }
@@ -234,20 +232,52 @@ class Game extends React.Component {
     const status = isGameOver ? 'Game Over' : 'Play!';
     console.log({ status });
     return (
-      <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0" >
-        <div className="game-info">
-          <button type="button">{status}</button>
-        </div>
-        <div className="game-board">
-          <Board squares={squares} />
-        </div>
-        <div className="score">
-          <button type="button">Score: {score}!</button>
-        </div>
-        <div className="restart">
-          <button type="button" onClick={this.handleRestart}> new game! </button>
-        </div>
+      <Container>
+      <div>
+      <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
+      <Row>
+        <Col>
+          <Row>
+            <Col></Col>
+            <Col>
+              <div className="game-board">
+                <Board squares={squares}/>
+              </div>
+            </Col>
+            <Col></Col>
+          </Row>
+        <Row>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+              <Col>
+                <div className="game-info">
+                  <Button color="danger">{status}</Button>
+                </div>
+              </Col>
+              <Col></Col>
+              <Col>
+                <div className="score">
+                  <Button color="warning">Score: {score}!</Button>
+                </div>
+              </Col>
+              <Col></Col>
+              <Col>
+                <div className="restart">
+                  <Button color="info" onClick={this.handleRestart}>New Game!</Button>
+                </div>
+              </Col>
+              <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>
+            </Row>
+          </Col>
+        </Row>
       </div>
+      </div>
+      </Container>
     );
   }
 }
