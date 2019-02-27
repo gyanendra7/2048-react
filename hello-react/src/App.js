@@ -96,11 +96,12 @@ class Game extends React.Component {
   shiftRight(squares) {
     console.log('shiftLeft');
     console.log({ squares });
-    let changeOccuredFlag = true;
+    let changeOccuredFlag = false;
+    this.state.changeOccured = false;
     for (var i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[i][0], squares[i][1], squares[i][2], squares[i][3]];
       oneDArr = this.shiftOneD(oneDArr);
-      changeOccuredFlag = this.state.changeOccured && changeOccuredFlag;
+      changeOccuredFlag = this.state.changeOccured || changeOccuredFlag;
       console.log({ oneDArr });
       squares[i][0] = oneDArr[0];
       squares[i][1] = oneDArr[1];
@@ -113,11 +114,12 @@ class Game extends React.Component {
 
   shiftLeft(squares) {
     console.log({ squares });
-    let changeOccuredFlag = true;
+    let changeOccuredFlag = false;
+    this.state.changeOccured = false;
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[i][3], squares[i][2], squares[i][1], squares[i][0]];
       oneDArr = this.shiftOneD(oneDArr);
-      changeOccuredFlag = this.state.changeOccured && changeOccuredFlag;
+      changeOccuredFlag = this.state.changeOccured || changeOccuredFlag;
       squares[i][0] = oneDArr[3];
       squares[i][1] = oneDArr[2];
       squares[i][2] = oneDArr[1];
@@ -129,11 +131,12 @@ class Game extends React.Component {
 
   shiftDown(squares) {
     console.log('shiftUp');
-    let changeOccuredFlag = true;
+    let changeOccuredFlag = false;
+    this.state.changeOccured = false;
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[0][i], squares[1][i], squares[2][i], squares[3][i]];
       oneDArr = this.shiftOneD(oneDArr);
-      changeOccuredFlag = this.state.changeOccured && changeOccuredFlag;
+      changeOccuredFlag = this.state.changeOccured || changeOccuredFlag;
       squares[0][i] = oneDArr[0];
       squares[1][i] = oneDArr[1];
       squares[2][i] = oneDArr[2];
@@ -144,11 +147,12 @@ class Game extends React.Component {
   }
 
   shiftUp(squares) {
-    let changeOccuredFlag = true;
+    let changeOccuredFlag = false;
+    this.state.changeOccured = false;
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[3][i], squares[2][i], squares[1][i], squares[0][i]];
       oneDArr = this.shiftOneD(oneDArr);
-      changeOccuredFlag = this.state.changeOccured && changeOccuredFlag;
+      changeOccuredFlag = this.state.changeOccured ||changeOccuredFlag;
       squares[0][i] = oneDArr[3];
       squares[1][i] = oneDArr[2];
       squares[2][i] = oneDArr[1];
