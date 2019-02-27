@@ -16,7 +16,7 @@ function getColor(value) {
       break;
     case 16:
       color = 'yellow';
-      break;  
+      break;
     case 32:
       color = 'red';
       break;
@@ -28,10 +28,10 @@ function getColor(value) {
       break;
     case 256:
       color = 'blue';
-      break; 
+      break;
     case 512:
       color = 'magenta';
-      break;  
+      break;
     case 1024:
       color = 'purple';
       break;
@@ -43,9 +43,9 @@ function getColor(value) {
       break;
     case 8192:
       color = 'grey';
-      break;  
+      break;
     default:
-      color = 'FireBrick';
+      color = 'azure';
   }
   return color;
 }
@@ -311,7 +311,7 @@ class Game extends React.Component {
     const seconds = timeInSeconds % 60 || 0;
     console.log({ time: `${minutes}:${seconds}` });
     return `${minutes}:${seconds}`;
-  } 
+  }
 
   render() {
     const { squares, score }= this.state;
