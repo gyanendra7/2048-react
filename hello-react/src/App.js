@@ -53,16 +53,28 @@ class Game extends React.Component {
       squares: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 2, 2]],
       isGameOver: false,
       changeOccured: false,
+      score: 0,
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleRestart = this.handleRestart.bind(this);
     this.shiftOneD = this.shiftOneD.bind(this);
     this.shiftLeft = this.shiftLeft.bind(this);
+  }
+
+  handleRestart() {
+    this.setState(() => ({
+      squares: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 2, 2]],
+      isGameOver: false,
+      changeOccured: false,
+      score: 0,
+    }));
   }
 
   shiftOneD(arr) {
     let lastNonSetIndex = 3;
     let index = 2;
     let flag = false;
+    let score = this.state.score;
     while(index >= 0) {
       if (arr[lastNonSetIndex] === 0) {
         arr[lastNonSetIndex] = arr[index];
@@ -74,6 +86,7 @@ class Game extends React.Component {
       }
       else if (arr[lastNonSetIndex] === arr[index]) {
         arr[lastNonSetIndex] = 2 * arr[index];
+        score += 2 * arr[index];
         arr[index] = 0;
         flag = true;
         lastNonSetIndex--;
@@ -90,6 +103,7 @@ class Game extends React.Component {
       }
     }
     this.state.changeOccured = flag;
+    this.state.score = score;
     console.log({ arr });
     return arr;
   }
@@ -214,24 +228,24 @@ class Game extends React.Component {
   }
 
   render() {
-    const squares = this.state.squares;
+    const { squares, score }= this.state;
     const isGameOver = checkGameOver(squares);
-
+    console.log({ squares, score });
     const status = isGameOver ? 'Game Over' : 'Play!';
     console.log({ status });
     return (
-      <div
-        className="game"
-        onKeyDown={this.handleKeyDown}
-        tabIndex="0"
-      >
-        <div className="game-board">
-          <Board
-            squares={squares}
-          />
-        </div>
+      <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0" >
         <div className="game-info">
-          <div><Button color="success">{status}</Button></div>
+          <button type="button">{status}</button>
+        </div>
+        <div className="game-board">
+          <Board squares={squares} />
+        </div>
+        <div className="score">
+          <button type="button">Score: {score}!</button>
+        </div>
+        <div className="restart">
+          <button type="button" onClick={this.handleRestart}> new game! </button>
         </div>
       </div>
     );
