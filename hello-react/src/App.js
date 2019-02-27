@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Swipe from 'react-easy-swipe';
 import './App.css';
 import { Jumbotron, Button, Container, Row, Col, Card } from 'reactstrap';
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 
 
 function getColor(value) {
@@ -48,7 +47,7 @@ function getColor(value) {
       color = 'grey';
       break;  
     default:
-      color = 'FireBrick';
+      color = 'Azure';
   }
   return color;
 }
@@ -406,65 +405,62 @@ class Game extends React.Component {
     return (
       <Container>
       <div id="header" name="header">
-      <Card id="cardname" name="cardname">Gradeup 2048 Game!</Card>
+        <Card id="cardname" name="cardname">Gradeup 2048 Game!</Card>
       </div>
       <div>
-      <Swipe
-        onSwipeMove={this.onSwipeMove}
-        onSwipeEnd={this.onSwipeEnd}
-        >
-        <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
-        <Row>
-          <Col>
-            <Row>
-              <Col></Col>
-              <Col>
-                <div className="game-board">
-                  <Board squares={squares}/>
-                </div>
-              </Col>
-              <Col></Col>
-            </Row>
+        <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={this.onSwipeEnd}>
+          <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
           <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
+            <Col>
+              <Row>
+                <Col></Col>
                 <Col>
-                  <div className="game-info">
-                    {/* <Button color="danger" onClick={this.startTimer}>{status}</Button> */}
-                    <Button color="danger">{status}</Button>
+                  <div className="game-board">
+                    <Board squares={squares}/>
                   </div>
                 </Col>
                 <Col></Col>
-                <Col>
-                  <div className="score">
-                    <Button color="warning">Score: {score}!</Button>
-                  </div>
-                </Col>
-                <Col></Col>
-                <Col>
-                  <div className="restart">
-                    <Button color="info" onClick={this.handleRestart}>New Game!</Button>
-                  </div>
-                </Col>
-                <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>
               </Row>
-            </Col>
-          </Row>
-          <div id="timer" name="timer">
-          <Row>
-          <Col></Col><Col></Col><Col></Col>
-          <Col><div className="timer">
-            <Button color="success"> You are Slow {this.getTime()}</Button>
-          </div></Col><Col></Col><Col></Col><Col></Col>
-          </Row>
+            <Row>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+                  <Col>
+                    <div className="game-info">
+                      {/* <Button color="danger" onClick={this.startTimer}>{status}</Button> */}
+                      <Button color="danger">{status}</Button>
+                    </div>
+                  </Col>
+                  <Col></Col>
+                  <Col>
+                    <div className="score">
+                      <Button color="warning">Score: {score}!</Button>
+                    </div>
+                  </Col>
+                  <Col></Col>
+                  <Col>
+                    <div className="restart">
+                      <Button color="info" onClick={this.handleRestart}>New Game!</Button>
+                    </div>
+                  </Col>
+                  <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>
+                </Row>
+              </Col>
+            </Row>
+            <div id="timer" name="timer">
+            <Row>
+            <Col></Col><Col></Col><Col></Col>
+            <Col><div className="timer">
+              <Button color="success"> You are Slow {this.getTime()}</Button>
+            </div></Col><Col></Col><Col></Col><Col></Col>
+            </Row>
+            </div>
           </div>
-        </div>
-      </Swipe>
+        </Swipe>
       </div>
       </Container>
     );
