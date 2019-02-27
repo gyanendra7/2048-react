@@ -33,32 +33,13 @@
 }
 
 .square {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   font-size: calc(20px + 2vmin);
 }
 
 .game-board {
   border-color: white;
-}
-
-#header{
-  background-color: #000000;
-  width: 100%
-}
-
-#cardname{
-  margin-top: 20px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  font-size: 40px;
-  background-color:#000000;
-}
-
-.timer{
-  margin-bottom: 20px;
-  margin-top: 50px;
 }
 
 .board-row {
@@ -67,8 +48,6 @@
   grid-template-rows: 25% 100px auto;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  margin-bottom: 50px;
-  margin-top: 50px;
 }
 
 .square {
