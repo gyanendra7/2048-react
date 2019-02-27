@@ -13,10 +13,10 @@ function Square(props) {
 
 class Board extends Component {
   renderSquare(i, j) {
+    let value = this.props.squares[i][j];
+    if (value === 0) value = null;
     return (
-      <Square
-        value={this.props.squares[i][j]}
-      />
+      <Square value={value} />
     );
   }
 
@@ -52,14 +52,34 @@ class Game extends React.Component {
       isGameOver: false,
       changeOccured: false,
       score: 0,
+      time: 0,
+      start: Date.now(),
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
     this.shiftOneD = this.shiftOneD.bind(this);
     this.shiftLeft = this.shiftLeft.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
+  }
+
+  startTimer() {
+    this.setState({
+      time: this.state.time,
+      start: Date.now()
+    })
+    this.timer = setInterval(() => this.setState({
+      time: Date.now() - this.state.start
+    }), 1)
+    console.log("start")
+  }
+
+  resetTimer() {
+    this.setState({ time: 0, start: Date.now() })
   }
 
   handleRestart() {
+    this.resetTimer()
     this.setState(() => ({
       squares: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 2, 2]],
       isGameOver: false,
@@ -233,6 +253,9 @@ class Game extends React.Component {
     console.log({ status });
     return (
       <Container>
+      <div className="timer">
+        <button type="button"> Timer :{this.state.time}</button>
+      </div>
       <div>
       <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
       <Row>
@@ -256,7 +279,7 @@ class Game extends React.Component {
         <Col></Col>
               <Col>
                 <div className="game-info">
-                  <Button color="danger">{status}</Button>
+                  <Button color="danger" onClick={this.startTimer}>{status}</Button>
                 </div>
               </Col>
               <Col></Col>
