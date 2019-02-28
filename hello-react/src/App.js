@@ -410,7 +410,7 @@ class Game extends React.Component {
               <Row>
               <Col></Col>
                 <div>
-                  <h1 className="header">Gradeup 2048 Game!</h1>
+                  <h1 className="header">Gradeup 2048</h1>
                 </div>
               <Col></Col>  
               </Row>
@@ -446,21 +446,20 @@ class Game extends React.Component {
             <Col></Col>
             <Col></Col>
                   <Col>
-                    <div className="game-info">
-                      {/* <Button color="danger" onClick={this.startTimer}>{status}</Button> */}
+                    <div>
                       <Button className="status" color="danger">{status}</Button>
                     </div>
                   </Col>
                   
                   <Col>
-                    <div className="score">
-                      <Button color="warning">Score: {score} !</Button>
+                    <div>
+                      <Button className="score" color="warning">Score: {score} !</Button>
                     </div>
                   </Col>
                   
                   <Col>
                     <div className="restart">
-                      <Button color="info" onClick={this.handleRestart}>New Game!</Button>
+                      <Button color="info" className="restart" onClick={this.handleRestart}>New Game!</Button>
                     </div>
                   </Col>
                   <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>

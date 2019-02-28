@@ -59,16 +59,11 @@
   /*border-spacing: 5px;*/
   border-width: 3px;
   transition: transform 300ms ease-in-out;
-  -webkit-transition: 1s;
-  -moz-transition: 1s;
-  -o-transition: 1s;
-  transition: 1s;
+  -webkit-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  transition: 0.7s;
 
-}
-
-.game-info {
-  color: red;
-  text-orientation: upright;
 }
 
 .timer {
@@ -107,16 +102,37 @@
   text-align: center;
   width: 432px;
   height: 50px;
+
+  border-radius: 8px;
+  border-color: white;
 }
 
 .status {
   width: 120px;
+
+  border-radius: 15px;
+  border-color: white;
+  border-width: 3px;
 }
+
+/*.game-info {
+  color: red;
+  text-orientation: upright;
+  border-width: 3px;
+}*/
 
 .score {
   width: 120px;
+
+  border-radius: 15px;
+  border-color: white;
+  border-width: 3px;
 }
 
 .restart {
   width: 120px;
+
+  border-radius: 15px;
+  border-color: white;
+  border-width: 3px;
 }
