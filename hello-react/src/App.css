@@ -58,6 +58,12 @@
   text-align: center;
   /*border-spacing: 5px;*/
   border-width: 3px;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+
 }
 
 .game-info {

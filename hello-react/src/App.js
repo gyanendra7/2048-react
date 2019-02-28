@@ -11,7 +11,7 @@ function getColor(value) {
       color = 'grey';
       break;
     case 4:
-      color = '#ffe4e1';
+      color = '#20b2aa';
       break;
     case 8:
       color = '#db7093';
@@ -23,7 +23,7 @@ function getColor(value) {
       color = '#8fbc8f';
       break;
     case 64:
-      color = '#20b2aa';
+      color = 'darkslategray';
       break;
     case 128:
       color = '#bc8f8f';
@@ -38,7 +38,7 @@ function getColor(value) {
       color = '#98fb98';
       break;
     case 2048:
-      color = '#c71585';
+      color = '#cd853f';
       break;
     case 4096:
       color = '#40e0d0';
@@ -50,7 +50,7 @@ function getColor(value) {
       color = 'grey';
       break;  
     default:
-      color = 'Azure';
+      color = '#eee4da';
   }
   return color;
 }
@@ -104,7 +104,7 @@ class Game extends React.Component {
       isGameOver: false,
       changeOccured: false,
       score: 0,
-      time: 0,
+      // time: 0,
       start: Date.now(),
       bestScore: 0,
       gameOn: false,
@@ -113,33 +113,33 @@ class Game extends React.Component {
     this.handleRestart = this.handleRestart.bind(this);
     this.shiftOneD = this.shiftOneD.bind(this);
     this.shiftLeft = this.shiftLeft.bind(this);
-    this.startTimer = this.startTimer.bind(this);
-    this.resetTimer = this.resetTimer.bind(this);
-    this.getTime = this.getTime.bind(this);
+    // this.startTimer = this.startTimer.bind(this);
+    // this.resetTimer = this.resetTimer.bind(this);
+    // this.getTime = this.getTime.bind(this);
   }
 
-  startTimer() {
-    this.setState({
-      time: this.state.time,
-      start: Date.now()
-    })
-    this.timer = setInterval(() => this.setState({
-      time: Date.now() - this.state.start
-    }), 1)
-    console.log("start")
-  }
+  // startTimer() {
+  //   this.setState({
+  //     time: this.state.time,
+  //     start: Date.now()
+  //   })
+  //   this.timer = setInterval(() => this.setState({
+  //     time: Date.now() - this.state.start
+  //   }), 1)
+  //   console.log("start")
+  // }
 
-  resetTimer() {
-    this.setState({ time: 0, start: Date.now() })
-    this.startTimer()
-  }
+  // resetTimer() {
+  //   this.setState({ time: 0, start: Date.now() })
+  //   this.startTimer()
+  // }
 
-  stopTimer() {
-    this.setState({ time: 0, start: Date.now() })
-  }
+  // stopTimer() {
+  //   this.setState({ time: 0, start: Date.now() })
+  // }
 
   handleRestart() {
-    this.resetTimer()
+    // this.resetTimer()
     this.setState(() => ({
       squares: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 2, 2]],
       isGameOver: false,
@@ -300,7 +300,7 @@ class Game extends React.Component {
           score, 
         },
       });
-      this.stopTimer(); 
+      // this.stopTimer(); 
       return;
     }
 
@@ -314,7 +314,9 @@ class Game extends React.Component {
     }
     const randomCandidate = Math.floor(Math.random() * popCandidates.length);
     console.log({ popCandidates , randomCandidate });
-    shiftArr[popCandidates[randomCandidate][0]][popCandidates[randomCandidate][1]] = 2;
+    const twoOrFour = (popCandidates.length * randomCandidate) % 2;
+    console .log({twoOrFour});
+    shiftArr[popCandidates[randomCandidate][0]][popCandidates[randomCandidate][1]] = twoOrFour === 1 ? 4 : 2;
     this.setState({
       squares: shiftArr,
       isGameOver: false,
@@ -348,18 +350,18 @@ class Game extends React.Component {
     this.compute(shiftArr);
   }
 
-  getTime() {
-    const timeInSeconds = Math.floor(this.state.time / 1000);
-    let minutes = String(Math.floor(timeInSeconds / 60) || 0);
-    let seconds = String(timeInSeconds % 60 || 0);
-    if (minutes.length == 1) {
-      minutes = '0' + minutes;
-    }
-    if (seconds.length == 1) {
-      seconds = '0' + seconds;
-    }
-    return minutes + ' : ' + seconds;
-  } 
+  // getTime() {
+  //   const timeInSeconds = Math.floor(this.state.time / 1000);
+  //   let minutes = String(Math.floor(timeInSeconds / 60) || 0);
+  //   let seconds = String(timeInSeconds % 60 || 0);
+  //   if (minutes.length == 1) {
+  //     minutes = '0' + minutes;
+  //   }
+  //   if (seconds.length == 1) {
+  //     seconds = '0' + seconds;
+  //   }
+  //   return minutes + ' : ' + seconds;
+  // } 
 
   onSwipeMove = pos => {
     this.setState({
@@ -465,14 +467,6 @@ class Game extends React.Component {
                 </Row>
               </Col>
             </Row>
-            <div id="timer" name="timer">
-            <Row>
-            <Col></Col><Col></Col><Col></Col>
-            <Col><div className="timer">
-              <Button color="success"> You are Slow {this.getTime()}</Button>
-            </div></Col><Col></Col><Col></Col><Col></Col>
-            </Row>
-            </div>
           </div>
         </Swipe>
       </div>
@@ -508,6 +502,13 @@ function checkGameOver(squares) {
   }
   return (ifZeroPresent || ifPossibleMatch) ? false : true;
 }
-
+            // <div id="timer" name="timer">
+            // <Row>
+            // <Col></Col><Col></Col><Col></Col>
+            // <Col><div className="timer">
+            //   <Button color="success"> You are Slow {this.getTime()}</Button>
+            // </div></Col><Col></Col><Col></Col><Col></Col>
+            // </Row>
+            // </div>
 
 export default Game;
