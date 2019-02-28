@@ -11,39 +11,42 @@ function getColor(value) {
       color = 'grey';
       break;
     case 4:
-      color = 'white';
+      color = '#ffe4e1';
       break;
     case 8:
-      color = 'pink';
+      color = '#db7093';
       break;
     case 16:
-      color = 'yellow';
+      color = '#f08080';
       break;  
     case 32:
-      color = 'red';
+      color = '#8fbc8f';
       break;
     case 64:
-      color = 'green';
+      color = '#20b2aa';
       break;
     case 128:
-      color = 'cyan';
+      color = '#bc8f8f';
       break;
     case 256:
-      color = 'blue';
+      color = '#4682b4';
       break; 
     case 512:
-      color = 'magenta';
+      color = '#f5deb3';
       break;  
     case 1024:
-      color = 'purple';
+      color = '#98fb98';
       break;
     case 2048:
-      color = 'Crimson';
+      color = '#c71585';
       break;
     case 4096:
-      color = 'LightSalmon';
+      color = '#40e0d0';
       break;
     case 8192:
+      color = '#f08080';
+      break;
+    case 16384:
       color = 'grey';
       break;  
     default:
@@ -104,6 +107,7 @@ class Game extends React.Component {
       time: 0,
       start: Date.now(),
       bestScore: 0,
+      gameOn: false,
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleRestart = this.handleRestart.bind(this);
@@ -141,6 +145,7 @@ class Game extends React.Component {
       isGameOver: false,
       changeOccured: false,
       score: 0,
+      gameOn: true,
     }));
   }
 
@@ -148,7 +153,7 @@ class Game extends React.Component {
     let lastNonSetIndex = 3;
     let index = 2;
     let flag = false;
-    let score = this.state.score;
+    let addScore = 0;
     while(index >= 0) {
       if (arr[lastNonSetIndex] === 0) {
         arr[lastNonSetIndex] = arr[index];
@@ -160,7 +165,7 @@ class Game extends React.Component {
       }
       else if (arr[lastNonSetIndex] === arr[index]) {
         arr[lastNonSetIndex] = 2 * arr[index];
-        score += 2 * arr[index];
+        addScore += 2 * arr[index];
         arr[index] = 0;
         flag = true;
         lastNonSetIndex--;
@@ -177,16 +182,17 @@ class Game extends React.Component {
       }
     }
     console.log({ arr });
-    return { arr, flag, score };
+    return { arr, flag, addScore };
   }
 
   shiftRight = () => {
-    if (this.state.isGameOver) return;
+    if (this.state.isGameOver || !this.state.gameOn) return;
     const { squares } = this.state;
     console.log('shiftRight');
     console.log({ squares });
     let changeOccuredFlag = false;
     let val = {};
+    let addScore = 0;    
     for (var i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[i][0], squares[i][1], squares[i][2], squares[i][3]];
       val = this.shiftOneD(oneDArr);
@@ -197,17 +203,19 @@ class Game extends React.Component {
       squares[i][1] = oneDArr[1];
       squares[i][2] = oneDArr[2];
       squares[i][3] = oneDArr[3];
+      addScore += val.addScore;
     }
-    return { squares, changeOccuredFlag, score: val.score };
+    return { squares, changeOccuredFlag, addScore };
   }
 
   shiftLeft = () => {
-    if (this.state.isGameOver) return;
+    if (this.state.isGameOver  || !this.state.gameOn) return;
     const { squares } = this.state;
     console.log('shiftLeft');
     console.log({ squares });
     let changeOccuredFlag = false;
     let val = {};
+    let addScore = 0;    
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[i][3], squares[i][2], squares[i][1], squares[i][0]];
       val = this.shiftOneD(oneDArr);
@@ -217,15 +225,17 @@ class Game extends React.Component {
       squares[i][1] = oneDArr[2];
       squares[i][2] = oneDArr[1];
       squares[i][3] = oneDArr[0];
+      addScore += val.addScore;
     }
-    return { squares, changeOccuredFlag, score: val.score };
+    return { squares, changeOccuredFlag, addScore };
   }
 
   shiftDown = () => {
-    if (this.state.isGameOver) return;
+    if (this.state.isGameOver || !this.state.gameOn) return;
     const { squares } = this.state;
     console.log('shiftUp');
     let val = {};
+    let addScore = 0;    
     let changeOccuredFlag = false;
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[0][i], squares[1][i], squares[2][i], squares[3][i]];
@@ -236,15 +246,17 @@ class Game extends React.Component {
       squares[1][i] = oneDArr[1];
       squares[2][i] = oneDArr[2];
       squares[3][i] = oneDArr[3];
+      addScore += val.addScore;
     }
-    return { squares, changeOccuredFlag, score: val.score };
+    return { squares, changeOccuredFlag, addScore };
   }
 
   shiftUp = () => {
-    if (this.state.isGameOver) return;
+    if (this.state.isGameOver || !this.state.gameOn) return;
     const { squares } = this.state;
     let changeOccuredFlag = false;
     let val = {};
+    let addScore = 0;    
     for (let i = 0; i < squares.length ; i++) {
       let oneDArr = [squares[3][i], squares[2][i], squares[1][i], squares[0][i]];
       val = this.shiftOneD(oneDArr);
@@ -254,16 +266,17 @@ class Game extends React.Component {
       squares[1][i] = oneDArr[2];
       squares[2][i] = oneDArr[1];
       squares[3][i] = oneDArr[0];
+      addScore += val.addScore;
     }
-    return { squares, changeOccuredFlag, score: val.score };
+    return { squares, changeOccuredFlag, addScore };
   }
 
-  compute = ({ squares: shiftArr, changeOccuredFlag, score }) => {
+  compute = ({ squares: shiftArr, changeOccuredFlag, addScore }) => {
 
-    console.log('compute', { squares: shiftArr, changeOccuredFlag });
+    console.log('compute', { squares: shiftArr, changeOccuredFlag, addScore });
 
-    let { bestScore } = this.state;
-
+    let { bestScore, score } = this.state;
+    score += addScore;
     if (score > bestScore) {
       bestScore = score;
     }
@@ -271,7 +284,6 @@ class Game extends React.Component {
     if (changeOccuredFlag === false) {
       this.setState({
         state: {
-          // changeOccured: true,
           bestScore,
           score,
         }
@@ -281,8 +293,13 @@ class Game extends React.Component {
     console.log({ changeOccured: changeOccuredFlag });
     if (checkGameOver(shiftArr)) {
       console.log({ shiftArr });
-      this.setState({ state : {isGameOver: true, bestScore,
-          score, } });
+      this.setState({ 
+        state : {
+          isGameOver: true, 
+          bestScore,
+          score, 
+        },
+      });
       this.stopTimer(); 
       return;
     }
@@ -303,12 +320,12 @@ class Game extends React.Component {
       isGameOver: false,
       bestScore,
       score,
-      // pos: {},
     });
   }
 
   handleKeyDown(key) {
     /* code for shifting array */
+    if (this.state.isGameOver || !this.state.gameOn) return;
     let shiftArr;
     console.log({ key: key.keyCode });
     switch (key.keyCode) {
@@ -328,27 +345,6 @@ class Game extends React.Component {
         return;
     }
 
-    this.compute(shiftArr);
-  }
-
-  handleSwipeDown = () => {
-    const shiftArr = this.shiftDown();
-    this.compute(shiftArr);
-  }
-
-  handleSwipeUp = () => {
-    const shiftArr = this.shiftUp();
-    this.compute(shiftArr);
-  }
-
-  handleSwipeLeft = () => {
-    console.log('xxxxxxx');
-    const shiftArr = this.shiftLeft();
-    this.compute(shiftArr);
-  }
-
-  handleSwipeRight = () => {
-    const shiftArr = this.shiftRight();
     this.compute(shiftArr);
   }
 
@@ -404,12 +400,31 @@ class Game extends React.Component {
     console.log({ status });
     return (
       <Container>
-      <div id="header" name="header">
-        <Card id="cardname" name="cardname">Gradeup 2048 Game!</Card>
-      </div>
       <div>
         <Swipe onSwipeMove={this.onSwipeMove} onSwipeEnd={this.onSwipeEnd}>
           <div className="game" onKeyDown={this.handleKeyDown} tabIndex="0">
+          <Row>
+            <Col>
+              <Row>
+              <Col></Col>
+                <div>
+                  <h1 className="header">Gradeup 2048 Game!</h1>
+                </div>
+              <Col></Col>  
+              </Row>
+            </Col>
+          </Row>  
+          <Row>
+            <Col>
+              <Row>
+              <Col></Col>
+                <div>
+                  <Button className="bestScore">Best Score : {this.state.bestScore}</Button>
+                </div>
+              <Col></Col>  
+              </Row>
+            </Col>
+          </Row> 
           <Row>
             <Col>
               <Row>
@@ -428,26 +443,25 @@ class Game extends React.Component {
             <Col></Col>
             <Col></Col>
             <Col></Col>
-            <Col></Col>
                   <Col>
                     <div className="game-info">
                       {/* <Button color="danger" onClick={this.startTimer}>{status}</Button> */}
-                      <Button color="danger">{status}</Button>
+                      <Button className="status" color="danger">{status}</Button>
                     </div>
                   </Col>
-                  <Col></Col>
+                  
                   <Col>
                     <div className="score">
-                      <Button color="warning">Score: {score}!</Button>
+                      <Button color="warning">Score: {score} !</Button>
                     </div>
                   </Col>
-                  <Col></Col>
+                  
                   <Col>
                     <div className="restart">
                       <Button color="info" onClick={this.handleRestart}>New Game!</Button>
                     </div>
                   </Col>
-                  <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>
+                  <Col></Col><Col></Col><Col></Col><Col></Col><Col></Col><Col></Col>
                 </Row>
               </Col>
             </Row>

@@ -35,7 +35,7 @@
 .square {
   width: 100px;
   height: 100px;
-  font-size: calc(20px + 2vmin);
+  font-size: 30px;
 }
 
 .game-board {
@@ -44,8 +44,8 @@
 
 .board-row {
   display: grid;
-  grid-template-columns: 100px 100px  100px 100px;
-  grid-template-rows: 25% 100px auto;
+  grid-template-columns: 100px 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px 100px;/*25% 100px auto;*/
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin-bottom: 30px;
@@ -55,6 +55,7 @@
   background-color: #22DC8F;
   border-radius: 8px;
   border-color: white;
+  text-align: center;
   /*border-spacing: 5px;*/
   border-width: 3px;
 }
@@ -66,4 +67,50 @@
 
 .timer {
   margin-top: 20px;
+}
+
+.header1 {
+    text-align: justify;
+    letter-spacing: 1px;
+    height: 8em;
+    padding: 2em 10%;
+    background: #2c3e50;
+    color: #fff;
+}
+.header {
+  margin-top: 20px;
+  position: relative;
+  align-self: center; 
+  text-align: center;
+  border-radius: 10px;
+  border-color: white;
+  border-width: 3px;
+
+  color: white;
+  background-color: #20b2aa;
+  letter-spacing: 1px;
+  height: 3em;
+  width: 432px;
+  padding: 0.5em 10%;
+  background: #2c3e50;
+}
+
+.bestScore {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 432px;
+  height: 50px;
+}
+
+.status {
+  width: 120px;
+}
+
+.score {
+  width: 120px;
+}
+
+.restart {
+  width: 120px;
 }
