@@ -158,8 +158,8 @@ class Game extends React.Component {
       if (arr[lastNonSetIndex] === 0) {
         arr[lastNonSetIndex] = arr[index];
         arr[index] = 0;
-        index --;
-        flag = true;
+        index--;
+        if (lastNonSetIndex !== index) flag=true;
       } else if (arr[index] === 0) {
         index--;
       }
@@ -167,7 +167,7 @@ class Game extends React.Component {
         arr[lastNonSetIndex] = 2 * arr[index];
         addScore += 2 * arr[index];
         arr[index] = 0;
-        flag = true;
+        if (lastNonSetIndex !== index) flag=true;
         lastNonSetIndex--;
         index--;
       }
@@ -176,7 +176,7 @@ class Game extends React.Component {
         if(lastNonSetIndex !== index) {
           arr[lastNonSetIndex] = arr[index];
           arr[index] = 0;
-          flag = true;
+          if (lastNonSetIndex !== index) flag=true;
         }
         index--;
       }

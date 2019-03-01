@@ -113,6 +113,11 @@
   border-radius: 15px;
   border-color: white;
   border-width: 3px;
+  transition: transform 300ms ease-in-out;
+  -webkit-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  transition: 0.7s;
 }
 
 /*.game-info {
